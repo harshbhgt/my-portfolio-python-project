@@ -1,0 +1,28 @@
+import random
+dice, sides = 2, 6
+rolls = [random.randint(1, sides) for _ in range(dice)]
+print(rolls, "total=", sum(rolls))
+
+import tkinter as tk
+import random
+import time
+
+def roll_dice():
+    for _ in range(15):
+        val = random.randint(1, 6)
+        label.config(text=str(val), font=("Helvetica", 80))
+        root.update()
+        time.sleep(0.07)
+    final = random.randint(1, 6)
+    label.config(text=str(final), font=("Helvetica", 80))
+
+root = tk.Tk()
+root.title("Dice Roller 🎲")
+
+label = tk.Label(root, text="?", font=("Helvetica", 80))
+label.pack(pady=20)
+
+button = tk.Button(root, text="Roll Dice", font=("Helvetica", 20), command=roll_dice)
+button.pack(pady=10)
+
+root.mainloop()
