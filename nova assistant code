@@ -1,0 +1,51 @@
+import pyttsx3
+import speech_recognition as sr
+import datetime
+import webbrowser
+import sys
+engine = pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = r.listen(source)
+    try:
+        command = r.recognize_google(audio).lower()
+        print("You:", command)
+        return command
+    except:
+        return ""
+
+def Nova():
+    speak("Hello Harsh, I am your Nova Assistant. How can I help you?")
+    while True:
+        command = listen()
+
+        if "time" in command:
+            now = datetime.datetime.now().strftime("%I:%M %p")
+            speak(f"The time is {now}")
+
+        elif "open youtube" in command:
+            speak("Opening YouTube")
+            webbrowser.open("https://youtube.com")
+
+        elif "search" in command:
+            query = command.replace("search", "")
+            speak(f"Searching for {query}")
+            webbrowser.open(f"https://www.google.com/search?q={query}")
+
+        elif "quit" in command or "exit" in command:
+            speak("Bye Harsh, see you soon.")
+            sys.exit()
+
+        else:
+            speak("Sorry, I did not understand.")
+
+Nova()
+
+
